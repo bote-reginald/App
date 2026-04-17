@@ -5,38 +5,48 @@ using System.Text;
 
 class Program
 {
-    private static int _count;
+    //private static int _count;
     private static int _nextGoalOfLines;
     private static string? _infoText;
     //private static string _in;
     private string _text = "";
-    private static string _newline = Environment.NewLine;
-    private readonly string _line = "";
-    private readonly DateTime _startTime;
+    //private readonly static string _newline = Environment.NewLine;
+    //private readonly string _line = "";
+    //private readonly DateTime _startTime;
     //private readonly Dictionary<string, string> db;
 
     static async Task Main()
     {
-        string _saveText = "C:/DB/__IN-FILE_TEXT-autosave.txt";
+        string _path = "C:/DB/";
+        string _read_file = "__IN-FILE_TEXT";
+        string _extension = ".txt";
         DateTime _startTime;
+        string _out_file = "C:/DB/__IN-FILE_TEXT-autosave.txt";
+
 
         try
         {
             _startTime = DateTime.Now;
             // run processing on background thread and get processed lines
-            List<string> processedLines = await Task.Run(static () => ReadAndProcessLines("C:/DB/", "__IN-FILE_TEXT", ".txt"));
+            List<string> processedLines = await Task.Run(() => ReadAndProcessLines(_path, _read_file, _extension));
 
-            StreamWriter streamWriter = new(File.Open(_saveText, FileMode.Create), Encoding.UTF8);
+            StreamWriter _stream_Writer = new(File.Open(_out_file, FileMode.Create), Encoding.UTF8);
 
-            _count = 0;
+            int _count = 0;
 
-            foreach (var line in processedLines)
+            _infoText = "Output";
+            //string _all_text = "";
+            foreach (var _line in processedLines)
             {
                 _count += 1;
 
-                string xline = DoReplace_Months_Days(line);
+                //string _all_text = DoReplace_Months_Days(_line);
 
-                streamWriter.WriteLine(xline);
+                //_all_text += Environment.NewLine + _line;
+
+                //Debugger.Break();
+
+                _stream_Writer.WriteLine(_line);
 
                 if (_count > _nextGoalOfLines)
                 {
@@ -46,7 +56,13 @@ class Program
                 }
             }
 
-            streamWriter.Close();
+            //Debugger.Break();
+
+            //_stream_Writer.Write(_all_text);
+
+            //Thread.Sleep(2000);
+
+            _stream_Writer.Close();
 
         }
         catch (Exception ex)
@@ -67,7 +83,7 @@ class Program
             Console.WriteLine("\nSound-Datei nicht gefunden.");
         }
 
-        Console.WriteLine(_newline + "Press ENTER to finish !");
+        Console.WriteLine(Environment.NewLine + "Press ENTER to finish !");
         Console.ReadLine();
     }
 
@@ -75,18 +91,41 @@ class Program
     {
         //_line_string = _in;
 
-        lineString = lineString.Replace(". JAN ", ".01.");
-        lineString = lineString.Replace(". FEB ", ".02.");
-        lineString = lineString.Replace(". MAR ", ".03.");
-        lineString = lineString.Replace(". APR ", ".04.");
-        lineString = lineString.Replace(". MAY ", ".05.");
-        lineString = lineString.Replace(". JUN ", ".06.");
-        lineString = lineString.Replace(". JUL ", ".07.");
-        lineString = lineString.Replace(". AUG ", ".08.");
-        lineString = lineString.Replace(". SEP ", ".09.");
-        lineString = lineString.Replace(". OCT ", ".10.");
-        lineString = lineString.Replace(". NOV ", ".11.");
-        lineString = lineString.Replace(". DEC ", ".12.");
+        lineString = lineString.Replace(" JAN ", ".01.");
+        lineString = lineString.Replace(" FEB ", ".02.");
+        lineString = lineString.Replace(" MAR ", ".03.");
+        lineString = lineString.Replace(" APR ", ".04.");
+        lineString = lineString.Replace(" MAY ", ".05.");
+        lineString = lineString.Replace(" JUN ", ".06.");
+        lineString = lineString.Replace(" JUL ", ".07.");
+        lineString = lineString.Replace(" AUG ", ".08.");
+        lineString = lineString.Replace(" SEP ", ".09.");
+        lineString = lineString.Replace(" OCT ", ".10.");
+        lineString = lineString.Replace(" NOV ", ".11.");
+        lineString = lineString.Replace(" DEC ", ".12.");
+
+        //lineString = lineString.Replace(". JAN ", ".01.");
+        //lineString = lineString.Replace(". FEB ", ".02.");
+        //lineString = lineString.Replace(". MAR ", ".03.");
+        //lineString = lineString.Replace(". APR ", ".04.");
+        //lineString = lineString.Replace(". MAY ", ".05.");
+        //lineString = lineString.Replace(". JUN ", ".06.");
+        //lineString = lineString.Replace(". JUL ", ".07.");
+        //lineString = lineString.Replace(". AUG ", ".08.");
+        //lineString = lineString.Replace(". SEP ", ".09.");
+        //lineString = lineString.Replace(". OCT ", ".10.");
+        //lineString = lineString.Replace(". NOV ", ".11.");
+        //lineString = lineString.Replace(". DEC ", ".12.");
+
+        lineString = lineString.Replace("\t1.", "\t01.");
+        lineString = lineString.Replace("\t2.", "\t02.");
+        lineString = lineString.Replace("\t3.", "\t03.");
+        lineString = lineString.Replace("\t4.", "\t04.");
+        lineString = lineString.Replace("\t5.", "\t05.");
+        lineString = lineString.Replace("\t6.", "\t06.");
+        lineString = lineString.Replace("\t7.", "\t07.");
+        lineString = lineString.Replace("\t8.", "\t08.");
+        lineString = lineString.Replace("\t9.", "\t09.");
 
         lineString = lineString.Replace("\"1.", "\"01.");
         lineString = lineString.Replace("\"2.", "\"02.");
@@ -97,6 +136,27 @@ class Program
         lineString = lineString.Replace("\"7.", "\"07.");
         lineString = lineString.Replace("\"8.", "\"08.");
         lineString = lineString.Replace("\"9.", "\"09.");
+
+        lineString = lineString.Replace("F,1.", "F,01.");
+        lineString = lineString.Replace("F,2.", "F,02.");
+        lineString = lineString.Replace("F,3.", "F,03.");
+        lineString = lineString.Replace("F,4.", "F,04.");
+        lineString = lineString.Replace("F,5.", "F,05.");
+        lineString = lineString.Replace("F,6.", "F,06.");
+        lineString = lineString.Replace("F,7.", "F,07.");
+        lineString = lineString.Replace("F,8.", "F,08.");
+        lineString = lineString.Replace("F,9.", "F,09.");
+
+        lineString = lineString.Replace("M,1.", "M,01.");
+        lineString = lineString.Replace("M,2.", "M,02.");
+        lineString = lineString.Replace("M,3.", "M,03.");
+        lineString = lineString.Replace("M,4.", "M,04.");
+        lineString = lineString.Replace("M,5.", "M,05.");
+        lineString = lineString.Replace("M,6.", "M,06.");
+        lineString = lineString.Replace("M,7.", "M,07.");
+        lineString = lineString.Replace("M,8.", "M,08.");
+        lineString = lineString.Replace("M,9.", "M,09.");
+
 
         return lineString;
     }
@@ -168,6 +228,8 @@ class Program
         int _length;
         int _length1;
         int _begin = 0;
+        int _count = 0;
+
         if (lineString.Contains(aname))
         {
             //Console.WriteLine(_newline + "A " + _line_string);
@@ -208,7 +270,8 @@ class Program
             lineString = lineString.Replace("{", "  K" + _nr + " <a name=\"");
 
             //_line_string = _line_string.Replace("_", " ");
-            _text = _count + " > "
+            _text = 
+                _count + " > "
                 + "firstblank =" + firstblank
                 + ", =" + secondblankOrEnd
                 + ", =" + thirdblankOrEnd + _newline
@@ -227,7 +290,7 @@ class Program
                 anameString = lineString.Substring(1, _length1);
 
             _length = anameString.IndexOf('"');
-            _nr = anameString.Substring(0, _length) ;
+            _nr = anameString.Substring(0, _length);
             lineString = lineString.Replace("{", "Kxx" + _nr /*+ _br + _newline*/ + " " + aname);
 
             //_line_string = _line_string + "K" + _nr + _br;
@@ -252,6 +315,7 @@ class Program
 
         DateTime _startTime = DateTime.Now;
         int lastPeListIndex = 0;
+        int _count = 0;
 
         string fullPath = Path.Combine(path, file + extension);
         if (!File.Exists(fullPath))
@@ -264,11 +328,13 @@ class Program
 
         //db = new Dictionary<string, string>();
 
-        using (var streamReader = new StreamReader(fullPath, Encoding.UTF8))
+//#pragma warning disable SYSLIB0001 // Type or member is obsolete
+        //using (StreamReader _stream_Reader = new(fullPath, Encoding.UTF7))
+        using (StreamReader _stream_Reader = new(fullPath, Encoding.UTF8))
         {
             _count = 0;
             _nextGoalOfLines = 10000;
-            while (streamReader.Peek() != -1)
+            while (_stream_Reader.Peek() != -1)
             {
                 _count++;
                 if (_count > _nextGoalOfLines)
@@ -278,8 +344,10 @@ class Program
                     _nextGoalOfLines += 50000;
                 }
 
-                string? line = streamReader.ReadLine();
+                string? line = _stream_Reader.ReadLine();
                 if (line == null) continue;
+
+                //Debugger.Break();
 
                 // perform replacements (reuse existing method)
                 line = DoReplace_Months_Days(line);
@@ -292,13 +360,14 @@ class Program
                 lastPeListIndex = 1 + lastPeListIndex - 1 + 1;
             }
         }
+//#pragma warning restore SYSLIB0001 // Type or member is obsolete
 
         infoText = "___________________________________________________start;" + _startTime + ";now;" + DateTime.Now + ";END";
         Console.WriteLine(infoText);
         //AddError("8888888", "INFO", infoText);
 
         _count = 0;
-        _nextGoalOfLines = 20000;
+        _nextGoalOfLines = 20000 + _count;
 
         //_places = new Dictionary<string, int>();
 
